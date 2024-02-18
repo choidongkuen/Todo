@@ -23,5 +23,5 @@ fun Board.toGetBoardDetailResponse() =
         createdBy = createdBy,
         createdAt = createdAt,
         comments = comments.map { it.toCommentResponse() }.toMutableList(),
-        tags = tags.map { it.name }
+        tags = tags.map { it.name },
     )
