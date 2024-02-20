@@ -1,4 +1,4 @@
-package com.todo
+package com.todo.service
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
