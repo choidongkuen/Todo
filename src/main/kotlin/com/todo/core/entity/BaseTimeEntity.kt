@@ -1,4 +1,4 @@
-package com.todo.domain
+package com.todo.core.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners
