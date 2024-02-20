@@ -1,6 +1,6 @@
-package com.todo.api.model
+package com.todo.api.model.todo
 
-import com.todo.domain.Todo
+import com.todo.domain.entity.Todo
 import java.time.LocalDateTime
 
 data class TodoResponse(

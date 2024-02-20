@@ -1,8 +1,8 @@
-package com.todo.service
+package com.todo.service.todo
 
 import com.ninjasquad.springmockk.MockkBean
-import com.todo.domain.Todo
-import com.todo.domain.TodoRepository
+import com.todo.domain.entity.Todo
+import com.todo.domain.repository.TodoRepository
 import io.mockk.every
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

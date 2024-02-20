@@ -1,7 +1,7 @@
-package com.todo.api.model
+package com.todo.api.model.todo
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.todo.domain.Todo
+import com.todo.domain.entity.Todo
 
 class TodoListResponse(
     val items: List<TodoResponse>,
@@ -16,6 +16,6 @@ class TodoListResponse(
     companion object {
         // List<Todo> -> List<TodoResponse>
         fun of(todoList: List<Todo>): TodoListResponse =
-            TodoListResponse(todoList.map(TodoResponse::of))
+            TodoListResponse(todoList.map(TodoResponse.Companion::of))
     }
 }

@@ -1,5 +1,6 @@
-package com.todo.domain
+package com.todo.domain.repository
 
+import com.todo.domain.entity.Todo
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface TodoRepository : JpaRepository<Todo, Long> {

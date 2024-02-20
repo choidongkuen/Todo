@@ -1,8 +1,8 @@
-package com.todo.service
+package com.todo.service.todo
 
-import com.todo.api.model.TodoRequest
-import com.todo.domain.Todo
-import com.todo.domain.TodoRepository
+import com.todo.api.model.todo.TodoRequest
+import com.todo.domain.entity.Todo
+import com.todo.domain.repository.TodoRepository
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
