@@ -41,7 +41,6 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:3.1.1")
     runtimeOnly("com.mysql:mysql-connector-j")
     runtimeOnly("com.h2database:h2")
-
 }
 
 tasks.withType<KotlinCompile> {

@@ -4,7 +4,7 @@ import com.todo.api.model.TodoListResponse
 import com.todo.api.model.TodoRequest
 import com.todo.api.model.TodoResponse
 import com.todo.service.TodoService
-import org.springframework.http.ResponseEntity.*
+import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

@@ -1,9 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3322/todo_db?useSSL=false&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3322/board?useSSL=false&serverTimezone=Asia/Seoul
     username: root
     password: 1234
+
 
   jpa:
       hibernate:
