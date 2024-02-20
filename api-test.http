@@ -1,0 +1,17 @@
+### POST todo 생성
+POST localhost:8080/api/todos
+Content-type: application/json
+
+{
+  "title": "제목",
+  "description": "설명",
+  "done": false
+}
+
+
+### GET 모든 todo 조회
+GET localhost:8080/api/todos
+
+### 특정 todo 조회
+GET localhost:8080/api/todos/1
+
