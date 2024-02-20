@@ -1,0 +1,19 @@
+server:
+    port: 0
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://awseb-e-7s4aa6uzbt-stack-awsebrdsdatabase-ybkt3cukavpa.crsyqsdzp0jt.ap-northeast-2.rds.amazonaws.com/board?useSSL=false&serverTimezone=Asia/Seoul
+        username: fastcam
+        password: ehdrms6390
+
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+                ## 필수
+                dialect: org.hibernate.dialect.MySQL8Dialect
