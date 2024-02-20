@@ -11,7 +11,7 @@ import jakarta.persistence.Lob
 @Entity(name = "todos")
 class Todo(
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = 0,
 
     @Column(name = "title", nullable = false)
@@ -22,9 +22,9 @@ class Todo(
 
     @Lob
     @Column(name = "done", nullable = false)
-    var done: Boolean
+    var done: Boolean,
 
-): BaseTimeEntity() {
+) : BaseTimeEntity() {
 
     // Todo 엔티티 수정
     // JPA + Kotlin 시 어쩔 수 없이 var (가변 인자)
@@ -33,5 +33,9 @@ class Todo(
         description = request.description
         done = request.done
         return this
+    }
+
+    fun approve() {
+        println("$id Todo is approved")
     }
 }

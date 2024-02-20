@@ -1,6 +1,5 @@
 package com.todo.service
 
-
 import com.todo.api.model.TodoRequest
 import com.todo.domain.Todo
 import com.todo.domain.TodoRepository
@@ -9,6 +8,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.util.Assert
 import org.springframework.web.server.ResponseStatusException
 
 @Service
@@ -19,7 +19,6 @@ class TodoService(
     @Transactional(readOnly = true)
     fun findAll(): List<Todo> =
         todoRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
-
 
     @Transactional(readOnly = true)
     fun findById(id: Long): Todo =
@@ -51,4 +50,18 @@ class TodoService(
 
     @Transactional
     fun delete(id: Long) = todoRepository.deleteById(id)
+
+    @Transactional
+    fun approve(id: Long) {
+        validate(id)
+
+        val todo: Todo? = todoRepository.findById(id)
+            .orElseThrow { NullPointerException() }
+
+        todo?.approve()
+    }
+
+    private fun validate(id: Long) {
+        Assert.isTrue(id > 0, "id 값이 유효하지 않습니다.")
+    }
 }

@@ -16,7 +16,7 @@ data class TodoResponse(
     companion object {
         fun of(todo: Todo?): TodoResponse {
             checkNotNull(todo) { "Todo is null" }
-            checkNotNull(todo.id) { "Todo'is is null"}
+            checkNotNull(todo.id) { "Todo'is is null" }
 
             // 빌더
             return TodoResponse(

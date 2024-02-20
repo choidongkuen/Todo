@@ -3,7 +3,6 @@ package com.todo.api.model
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.todo.domain.Todo
 
-
 class TodoListResponse(
     val items: List<TodoResponse>,
 ) {
@@ -19,5 +18,4 @@ class TodoListResponse(
         fun of(todoList: List<Todo>): TodoListResponse =
             TodoListResponse(todoList.map(TodoResponse::of))
     }
-
 }

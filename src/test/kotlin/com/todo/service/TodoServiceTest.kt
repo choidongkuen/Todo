@@ -26,7 +26,7 @@ class TodoServiceTest {
             id = 1,
             title = "테스트",
             description = "테스트 상세",
-            done = false,
+            done = false
         )
     }
 
@@ -39,12 +39,18 @@ class TodoServiceTest {
     @DisplayName("findById 호출 시 한개의 TODO 을 반환한다")
     fun `한개의 TODO를 반환한다`() {
         // Given
-        every { repository.findByIdOrNull(1)} returns stub
+        every { repository.findByIdOrNull(1) } returns stub
 
         // When
         val actual = service.findById(1L)
 
         // Then
         assertThat(actual).isNotNull
+    }
+
+    @Test
+    @DisplayName("approve 호출 시 해당 todo 을 approve 한다")
+    fun `해당하는 Todo 을 approve 한다`() {
+        val id = 2L
     }
 }
