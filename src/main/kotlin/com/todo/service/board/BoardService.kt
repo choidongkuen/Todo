@@ -52,7 +52,6 @@ class BoardService(
     private fun getBoardById(id: Long): Board {
         return boardRepository.findByIdOrNull(id)
             ?: throw BoardNotFoundException("해당 게시글이 존재하지 않습니다.")
-
     }
 
     private fun checkCreatedByIsMatch(
@@ -66,9 +65,9 @@ class BoardService(
 
     private fun checkCreatedByIsMatch(
         board: Board,
-        createdBy: String
+        createdBy: String,
     ) {
-        if(board.createdBy != createdBy) {
+        if (board.createdBy != createdBy) {
             throw BoardCreatedByNotMatchException("삭제할 수 없는 게시글입니다.")
         }
     }
