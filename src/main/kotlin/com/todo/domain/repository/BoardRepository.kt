@@ -1,6 +1,5 @@
 package com.todo.domain.repository
 
-import com.todo.api.model.board.GetBoardsRequest
 import com.todo.domain.entity.Board
 import com.todo.domain.entity.QBoard.board
 import com.todo.service.board.dto.GetBoardsRequestDto
@@ -11,13 +10,15 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 interface BoardRepository : JpaRepository<Board, Long>, CustomBoardRepository
 
-
 interface CustomBoardRepository {
     fun findPageBy(pageRequest: org.springframework.data.domain.Pageable, getBoardsRequest: GetBoardsRequestDto): Page<Board>
 }
 
 class CustomBoardRepositoryImpl : CustomBoardRepository, QuerydslRepositorySupport(Board::class.java) {
-    override fun findPageBy(pageRequest: org.springframework.data.domain.Pageable, getBoardsRequest: GetBoardsRequestDto): Page<Board> {
+    override fun findPageBy(
+        pageRequest: org.springframework.data.domain.Pageable,
+        getBoardsRequest: GetBoardsRequestDto
+    ): Page<Board> {
         val result = from(board)
             .where(
                 getBoardsRequest.title?.let { board.title.contains(it) },
@@ -27,6 +28,6 @@ class CustomBoardRepositoryImpl : CustomBoardRepository, QuerydslRepositorySuppo
             .offset(pageRequest.offset) // 시작
             .limit(pageRequest.pageSize.toLong()) // 개수
             .fetchResults()
-        return PageImpl(result.results,pageRequest,result.total)
+        return PageImpl(result.results, pageRequest, result.total)
     }
 }

@@ -9,7 +9,7 @@ data class TodoResponse(
     val description: String,
     val done: Boolean,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val updatedAt: LocalDateTime
 ) {
 
     // Todo -> TodoResponse

@@ -23,7 +23,7 @@ class Todo(
 
     @Lob
     @Column(name = "done", nullable = false)
-    var done: Boolean,
+    var done: Boolean
 
 ) : BaseTimeEntity() {
 

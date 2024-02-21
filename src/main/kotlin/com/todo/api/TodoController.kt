@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/todos")
 class TodoController(
-    private val todoService: TodoService,
+    private val todoService: TodoService
 ) {
 
     // 모든 todo list 조회
@@ -39,13 +39,13 @@ class TodoController(
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: Long,
-        @RequestBody request: TodoRequest,
+        @RequestBody request: TodoRequest
     ) = ok(TodoResponse.of(todoService.update(id, request)))
 
     // todo 삭제
     @DeleteMapping("/{id}")
     fun delete(
-        @PathVariable id: Long,
+        @PathVariable id: Long
     ) {
         todoService.delete(id)
     }

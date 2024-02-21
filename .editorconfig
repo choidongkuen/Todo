@@ -1,16 +1,13 @@
-# ktlint 가 해당 파일을 통해 formatting
-
-₩root = true
+root = true
 
 [*]
-charset=utf-8
-end_of_line=lf
-indent_style=space
-indent_size=4
-insert_final_newline=true
-max_line_length=120
+end_of_line = lf
+indent_size = 4
+indent_style = space
 trim_trailing_whitespace = true
-no-wildcard-imports=enabled
 
 [*.{kt,kts}]
-ij_kotlin_allow_trailing_comma = true
+max_line_length = 120
+disabled_rules=import-ordering, no-wildcard-imports
+ktlint_disabled_rules=trailing-comma
+insert_final_newline = true

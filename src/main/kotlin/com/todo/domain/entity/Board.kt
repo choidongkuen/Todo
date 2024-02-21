@@ -16,7 +16,7 @@ open class Board(
 
     content: String,
 
-    createdBy: String,
+    createdBy: String
 ) : BaseTimeEntity() {
     @Column(name = "title", nullable = false)
     var title: String = title
@@ -45,7 +45,7 @@ open class Board(
         title = this.title,
         content = this.content,
         createdBy = this.createdBy,
-        createdAt = this.createdAt,
+        createdAt = this.createdAt
     )
 
     fun toGetBoardResponse() = GetBoardResponse(

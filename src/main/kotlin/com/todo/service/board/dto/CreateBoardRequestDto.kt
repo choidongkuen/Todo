@@ -5,7 +5,7 @@ import com.todo.domain.entity.Board
 data class CreateBoardRequestDto(
     val title: String,
     val content: String,
-    val createdBy: String,
+    val createdBy: String
 )
 
 fun CreateBoardRequestDto.toEntity(): Board = Board(

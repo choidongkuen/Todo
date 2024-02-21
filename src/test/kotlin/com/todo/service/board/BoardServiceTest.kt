@@ -20,7 +20,7 @@ import org.springframework.data.repository.findByIdOrNull
 @SpringBootTest
 class BoardServiceTest(
     private val boardService: BoardService,
-    private val boardRepository: BoardRepository,
+    private val boardRepository: BoardRepository
 ) : BehaviorSpec({
     beforeSpec {
         boardRepository.saveAll(
@@ -36,7 +36,6 @@ class BoardServiceTest(
 
             )
         )
-
     }
     given("게시글 생성시") {
         `when`("게시글 생성 요청이 정상적으로 들어오면") {
@@ -170,7 +169,7 @@ class BoardServiceTest(
             then("게시글에 대한 목록 조회 응답이 반환된다.") {
                 result.size shouldBe 5
                 result.content.size shouldBe 5
-                result.content[0].createdBy shouldContain  "Mike"
+                result.content[0].createdBy shouldContain "Mike"
             }
         }
         `when`("제목 조건으로 정상적인 목록 조회 요청 시") {
@@ -178,7 +177,6 @@ class BoardServiceTest(
             then("제목에 해당하는 게시물을 반환한다.") {
                 result.size shouldBe 5
                 result.content.size shouldBe 5
-
             }
         }
         `when`("작성자 조건으로 정상적인 목록 조회 요청 시") {

@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class BoardService(
-    private val boardRepository: BoardRepository,
+    private val boardRepository: BoardRepository
 ) {
 
     @Transactional
@@ -49,9 +49,8 @@ class BoardService(
         return getBoardById(id).toBoardDetailResponse()
     }
 
-    fun getBoardsBySearch(pageRequest: Pageable, getBoardsRequest: GetBoardsRequestDto)
-        : Page<GetBoardResponse> {
-        return boardRepository.findPageBy(pageRequest,getBoardsRequest).toGetBoardResponse()
+    fun getBoardsBySearch(pageRequest: Pageable, getBoardsRequest: GetBoardsRequestDto): Page<GetBoardResponse> {
+        return boardRepository.findPageBy(pageRequest, getBoardsRequest).toGetBoardResponse()
     }
 
     private fun getBoardById(id: Long): Board {
@@ -61,7 +60,7 @@ class BoardService(
 
     private fun checkCreatedByIsMatch(
         board: Board,
-        request: UpdateBoardRequestDto,
+        request: UpdateBoardRequestDto
     ) {
         if (board.createdBy != request.updatedBy) {
             throw BoardCreatedByNotMatchException("수정할 수 없는 게시글입니다.")
@@ -70,7 +69,7 @@ class BoardService(
 
     private fun checkCreatedByIsMatch(
         board: Board,
-        createdBy: String,
+        createdBy: String
     ) {
         if (board.createdBy != createdBy) {
             throw BoardCreatedByNotMatchException("삭제할 수 없는 게시글입니다.")

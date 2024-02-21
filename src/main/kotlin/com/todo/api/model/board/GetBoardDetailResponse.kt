@@ -8,14 +8,13 @@ data class GetBoardDetailResponse(
     val title: String,
     val content: String,
     val createdBy: String,
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime
 )
-
 
 fun GetBoardDetailResponse.toResponse() = GetBoardDetailResponse(
     id = id,
     title = title,
     content = content,
     createdBy = createdBy,
-    createdAt = createdAt,
+    createdAt = createdAt
 )

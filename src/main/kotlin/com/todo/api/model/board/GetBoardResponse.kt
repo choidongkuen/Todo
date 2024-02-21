@@ -14,7 +14,7 @@ data class GetBoardResponse(
 )
 
 fun Page<Board>.toGetBoardResponse() = PageImpl(
-    content.map {it.toGetBoardResponse()},
+    content.map { it.toGetBoardResponse() },
     pageable,
     totalElements
 )
