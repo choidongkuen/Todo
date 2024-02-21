@@ -1,4 +1,4 @@
-package com.todo.api.model.board
+package com.todo.api.dto.board
 
 import com.todo.service.board.dto.GetBoardsRequestDto
 

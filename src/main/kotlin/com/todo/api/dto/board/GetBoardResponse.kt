@@ -1,4 +1,4 @@
-package com.todo.api.model.board
+package com.todo.api.dto.board
 
 import com.todo.domain.entity.Board
 import org.springframework.data.domain.Page
