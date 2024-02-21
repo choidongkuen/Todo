@@ -1,6 +1,6 @@
 package com.todo.service.todo
 
-import com.todo.api.model.todo.TodoRequest
+import com.todo.api.dto.todo.TodoRequest
 import com.todo.domain.entity.Todo
 import com.todo.domain.repository.TodoRepository
 import org.springframework.data.domain.Sort

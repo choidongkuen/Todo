@@ -1,4 +1,4 @@
-package com.todo.api.model.todo
+package com.todo.api.dto.todo
 
 import com.todo.domain.entity.Todo
 import java.time.LocalDateTime

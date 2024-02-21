@@ -1,4 +1,4 @@
-package com.todo.api.model.todo
+package com.todo.api.dto.todo
 
 data class TodoRequest(
     val title: String,

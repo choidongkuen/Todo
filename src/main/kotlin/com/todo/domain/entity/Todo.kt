@@ -1,6 +1,6 @@
 package com.todo.domain.entity
 
-import com.todo.api.model.todo.TodoRequest
+import com.todo.api.dto.todo.TodoRequest
 import com.todo.core.entity.BaseTimeEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

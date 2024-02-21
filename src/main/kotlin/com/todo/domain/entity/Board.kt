@@ -1,10 +1,16 @@
 package com.todo.domain.entity
 
-import com.todo.api.model.board.GetBoardDetailResponse
-import com.todo.api.model.board.GetBoardResponse
+import com.todo.api.dto.board.GetBoardDetailResponse
+import com.todo.api.dto.board.GetBoardResponse
 import com.todo.core.entity.BaseTimeEntity
 import com.todo.service.board.dto.UpdateBoardRequestDto
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 
 @Entity(name = "boards")
 open class Board(
@@ -32,6 +38,10 @@ open class Board(
 
     @Column(name = "updated_by")
     var updatedBy: String? = null
+        protected set
+
+    @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = [CascadeType.ALL])
+    var comments: List<Comment>? = mutableListOf()
         protected set
 
     fun updateBoard(request: UpdateBoardRequestDto) {
