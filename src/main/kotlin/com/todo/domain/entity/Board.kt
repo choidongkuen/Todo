@@ -1,5 +1,7 @@
 package com.todo.domain.entity
 
+import com.todo.api.model.board.GetBoardDetailResponse
+import com.todo.api.model.board.GetBoardResponse
 import com.todo.core.entity.BaseTimeEntity
 import com.todo.service.board.dto.UpdateBoardRequestDto
 import jakarta.persistence.*
@@ -37,4 +39,19 @@ open class Board(
         content = request.content
         updatedBy = request.updatedBy
     }
+
+    fun toBoardDetailResponse() = GetBoardDetailResponse(
+        id = id,
+        title = this.title,
+        content = this.content,
+        createdBy = this.createdBy,
+        createdAt = this.createdAt,
+    )
+
+    fun toGetBoardResponse() = GetBoardResponse(
+        id = id,
+        title = title,
+        createdBy = createdBy,
+        createdAt = createdAt
+    )
 }
