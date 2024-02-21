@@ -32,7 +32,7 @@ class BoardService(
     @Transactional
     fun updateBoard(id: Long, request: UpdateBoardRequestDto): Long {
         val board = getBoardById(id)
-        checkCreatedByIsMatch(board, request)
+        checkCreatedByIsMatchWithUpdatedAt(board, request)
         board.updateBoard(request)
         return id
     }
@@ -40,7 +40,7 @@ class BoardService(
     @Transactional
     fun deleteBoard(id: Long, createdBy: String): Long {
         val board = getBoardById(id)
-        checkCreatedByIsMatch(board, createdBy)
+        checkCreatedByIsMatchWithDeletedBy(board, createdBy)
         boardRepository.delete(board)
         return id
     }
@@ -53,12 +53,12 @@ class BoardService(
         return boardRepository.findPageBy(pageRequest, getBoardsRequest).toGetBoardResponse()
     }
 
-    private fun getBoardById(id: Long): Board {
+    fun getBoardById(id: Long): Board {
         return boardRepository.findByIdOrNull(id)
             ?: throw BoardNotFoundException("해당 게시글이 존재하지 않습니다.")
     }
 
-    private fun checkCreatedByIsMatch(
+    private fun checkCreatedByIsMatchWithUpdatedAt(
         board: Board,
         request: UpdateBoardRequestDto
     ) {
@@ -67,7 +67,7 @@ class BoardService(
         }
     }
 
-    private fun checkCreatedByIsMatch(
+    private fun checkCreatedByIsMatchWithDeletedBy(
         board: Board,
         createdBy: String
     ) {

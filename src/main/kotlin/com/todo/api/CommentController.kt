@@ -2,6 +2,7 @@ package com.todo.api
 
 import com.todo.api.dto.comment.CreateCommentRequest
 import com.todo.api.dto.comment.UpdateCommentRequest
+import com.todo.api.dto.comment.toDto
 import com.todo.service.comment.CommentService
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -20,13 +21,13 @@ class CommentController(
     fun createComment(
         @PathVariable id: Long,
         @RequestBody createCommentRequest: CreateCommentRequest
-    ) = ok(commentService.createComment(id, createCommentRequest))
+    ) = ok(commentService.createComment(id, createCommentRequest.toDto()))
 
     @PutMapping("/comments/{id}")
     fun updateComment(
         @PathVariable id: Long,
         @RequestBody updateCommentRequest: UpdateCommentRequest
-    ) = ok(commentService.updateComment(id, updateCommentRequest))
+    ) = ok(commentService.updateComment(id, updateCommentRequest.toDto()))
 
     @DeleteMapping("/comments/{id}")
     fun deleteComment(

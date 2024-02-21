@@ -1,12 +1,14 @@
 package com.todo.domain.entity
 
 import com.todo.core.entity.BaseTimeEntity
+import com.todo.service.comment.dto.UpdateCommentRequestDto
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 
 // kotlin 에서 JPA 사용시 다양한 문제 발생
@@ -25,8 +27,17 @@ class Comment(
     var content: String = content
         protected set
 
-    @Column(name = "board")
+    @Column(name = "updated_by")
+    var updatedBy: String? = null
+        protected set
+
+    @JoinColumn(name = "board_id")
     @ManyToOne(fetch = FetchType.LAZY)
     var board: Board = board
         protected set
+
+    fun updateComment(request: UpdateCommentRequestDto) {
+        content = request.content
+        updatedBy = request.updatedBy
+    }
 }
