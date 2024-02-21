@@ -1,8 +1,8 @@
 package com.todo.api
 
-import com.todo.api.model.todo.TodoListResponse
-import com.todo.api.model.todo.TodoRequest
-import com.todo.api.model.todo.TodoResponse
+import com.todo.api.dto.todo.TodoListResponse
+import com.todo.api.dto.todo.TodoRequest
+import com.todo.api.dto.todo.TodoResponse
 import com.todo.service.todo.TodoService
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.DeleteMapping

@@ -1,9 +1,9 @@
 package com.todo.api
 
-import com.todo.api.model.board.CreateBoardRequest
-import com.todo.api.model.board.GetBoardsRequest
-import com.todo.api.model.board.UpdateBoardRequest
-import com.todo.api.model.board.toDto
+import com.todo.api.dto.board.CreateBoardRequest
+import com.todo.api.dto.board.GetBoardsRequest
+import com.todo.api.dto.board.UpdateBoardRequest
+import com.todo.api.dto.board.toDto
 import com.todo.service.board.BoardService
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity.ok
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/boards")
 class BoardController(
     private val boardService: BoardService
 ) {
