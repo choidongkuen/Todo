@@ -1,26 +1,21 @@
 package com.todo.domain.entity
 
 import com.todo.core.entity.BaseTimeEntity
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 
 @Entity(name = "boards")
 class Board(
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
-    @Column(name = "title", length = 50, nullable = false)
-    val title: String,
+    var title: String,
 
-    @Lob
-    @Column(name = "content", nullable = false)
-    val content: String,
+    var content: String,
 
-    @Column(name = "created_by", length = 50)
-    val createdBy: String,
-
-    @Column(name = "updated_by", length = 50)
-    val updatedBy: String,
-
-) : BaseTimeEntity()
+    var createdBy: String,
+) : BaseTimeEntity() {
+}
