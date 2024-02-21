@@ -1,26 +1,40 @@
 package com.todo.domain.entity
 
 import com.todo.core.entity.BaseTimeEntity
+import com.todo.service.board.dto.UpdateBoardRequestDto
 import jakarta.persistence.*
 
 @Entity(name = "boards")
-class Board(
+open class Board(
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
 
-    @Column(name = "title", length = 50, nullable = false)
-    val title: String,
+    title: String,
 
-    @Lob
+    content: String,
+
+    createdBy: String,
+) : BaseTimeEntity() {
+    @Column(name = "title", nullable = false)
+    var title: String = title
+        protected set
+
     @Column(name = "content", nullable = false)
-    val content: String,
+    var content: String = content
+        protected set
 
-    @Column(name = "created_by", length = 50)
-    val createdBy: String,
+    @Column(name = "created_by", nullable = false)
+    var createdBy: String = createdBy
+        protected set
 
-    @Column(name = "updated_by", length = 50)
-    val updatedBy: String,
+    @Column(name = "updated_by")
+    var updatedBy: String? = null
+        protected set
 
-) : BaseTimeEntity()
+    fun updateBoard(request: UpdateBoardRequestDto) {
+        title = request.title
+        content = request.content
+        updatedBy = request.updatedBy
+    }
+}
