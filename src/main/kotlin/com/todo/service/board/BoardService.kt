@@ -1,13 +1,17 @@
 package com.todo.service.board
 
-import com.todo.api.model.board.GetBoardsRequest
+import com.todo.api.model.board.GetBoardDetailResponse
+import com.todo.api.model.board.GetBoardResponse
+import com.todo.api.model.board.toGetBoardResponse
 import com.todo.domain.entity.Board
 import com.todo.domain.repository.BoardRepository
 import com.todo.exception.BoardCreatedByNotMatchException
 import com.todo.exception.BoardNotFoundException
 import com.todo.service.board.dto.CreateBoardRequestDto
+import com.todo.service.board.dto.GetBoardsRequestDto
 import com.todo.service.board.dto.UpdateBoardRequestDto
 import com.todo.service.board.dto.toEntity
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -41,12 +45,13 @@ class BoardService(
         return id
     }
 
-    fun getBoard(id: Long) {
-        return
+    fun getBoard(id: Long): GetBoardDetailResponse {
+        return getBoardById(id).toBoardDetailResponse()
     }
 
-    fun getBoardsBySearch(pageable: Pageable, getBoardsRequest: GetBoardsRequest) {
-        return
+    fun getBoardsBySearch(pageRequest: Pageable, getBoardsRequest: GetBoardsRequestDto)
+        : Page<GetBoardResponse> {
+        return boardRepository.findPageBy(pageRequest,getBoardsRequest).toGetBoardResponse()
     }
 
     private fun getBoardById(id: Long): Board {

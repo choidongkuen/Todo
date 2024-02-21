@@ -3,6 +3,7 @@ package com.todo.api
 import com.todo.api.model.board.CreateBoardRequest
 import com.todo.api.model.board.GetBoardsRequest
 import com.todo.api.model.board.UpdateBoardRequest
+import com.todo.api.model.board.toDto
 import com.todo.service.board.BoardService
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity.ok
@@ -45,5 +46,5 @@ class BoardController(
         pageable: Pageable,
         getBoardsRequest: GetBoardsRequest,
     ) =
-        ok(boardService.getBoardsBySearch(pageable, getBoardsRequest))
+        ok(boardService.getBoardsBySearch(pageable, getBoardsRequest.toDto()))
 }
