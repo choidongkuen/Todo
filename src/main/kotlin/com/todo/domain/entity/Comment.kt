@@ -21,7 +21,7 @@ class Comment(
     val id: Long? = null,
     content: String,
     val createdBy: String,
-    board: Board
+    board: Board,
 ) : BaseTimeEntity() {
     @Column(name = "content", nullable = false)
     var content: String = content

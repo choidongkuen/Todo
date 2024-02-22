@@ -5,4 +5,4 @@ class SampleTest : FunSpec({
     test("sample test") {
         1 shouldBe 1
     }
-})
+},)

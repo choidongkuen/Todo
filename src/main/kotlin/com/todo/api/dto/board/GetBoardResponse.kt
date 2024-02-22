@@ -10,11 +10,11 @@ data class GetBoardResponse(
     val id: Long?,
     val title: String,
     val createdBy: String,
-    val createdAt: LocalDateTime
+    val createdAt: LocalDateTime,
 )
 
 fun Page<Board>.toGetBoardResponse() = PageImpl(
     content.map { it.toGetBoardResponse() },
     pageable,
-    totalElements
+    totalElements,
 )

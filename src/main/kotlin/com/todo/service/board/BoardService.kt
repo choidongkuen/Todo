@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class BoardService(
-    private val boardRepository: BoardRepository
+    private val boardRepository: BoardRepository,
 ) {
 
     @Transactional
@@ -60,7 +60,7 @@ class BoardService(
 
     private fun checkCreatedByIsMatchWithUpdatedAt(
         board: Board,
-        request: UpdateBoardRequestDto
+        request: UpdateBoardRequestDto,
     ) {
         if (board.createdBy != request.updatedBy) {
             throw BoardCreatedByNotMatchException("수정할 수 없는 게시글입니다.")
@@ -69,7 +69,7 @@ class BoardService(
 
     private fun checkCreatedByIsMatchWithDeletedBy(
         board: Board,
-        createdBy: String
+        createdBy: String,
     ) {
         if (board.createdBy != createdBy) {
             throw BoardCreatedByNotMatchException("삭제할 수 없는 게시글입니다.")

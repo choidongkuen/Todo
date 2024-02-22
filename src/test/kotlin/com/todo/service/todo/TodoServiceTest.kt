@@ -26,7 +26,7 @@ class TodoServiceTest {
             id = 1,
             title = "테스트",
             description = "테스트 상세",
-            done = false
+            done = false,
         )
     }
 

@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class CommentController(
-    private val commentService: CommentService
+    private val commentService: CommentService,
 ) {
     @PostMapping("/boards/{id}/comments")
     fun createComment(
         @PathVariable id: Long,
-        @RequestBody createCommentRequest: CreateCommentRequest
+        @RequestBody createCommentRequest: CreateCommentRequest,
     ) = ok(commentService.createComment(id, createCommentRequest.toDto()))
 
     @PutMapping("/comments/{id}")
     fun updateComment(
         @PathVariable id: Long,
-        @RequestBody updateCommentRequest: UpdateCommentRequest
+        @RequestBody updateCommentRequest: UpdateCommentRequest,
     ) = ok(commentService.updateComment(id, updateCommentRequest.toDto()))
 
     @DeleteMapping("/comments/{id}")
     fun deleteComment(
         @PathVariable id: Long,
-        @RequestParam deletedBy: String
+        @RequestParam deletedBy: String,
     ) = ok(commentService.deleteComment(id, deletedBy))
 }

@@ -20,7 +20,7 @@ import org.springframework.data.repository.findByIdOrNull
 @SpringBootTest
 class BoardServiceTest(
     private val boardService: BoardService,
-    private val boardRepository: BoardRepository
+    private val boardRepository: BoardRepository,
 ) : BehaviorSpec({
     beforeSpec {
         boardRepository.saveAll(
@@ -32,9 +32,9 @@ class BoardServiceTest(
                 Board(title = "title15", content = "content5", createdBy = "Mike5"),
                 Board(title = "title16", content = "content6", createdBy = "Mike6"),
                 Board(title = "title17", content = "content7", createdBy = "Mike7"),
-                Board(title = "title18", content = "content8", createdBy = "Mike8")
+                Board(title = "title18", content = "content8", createdBy = "Mike8"),
 
-            )
+            ),
         )
     }
     given("게시글 생성시") {
@@ -43,8 +43,8 @@ class BoardServiceTest(
                 CreateBoardRequestDto(
                     title = "제목",
                     content = "내용",
-                    createdBy = "John"
-                )
+                    createdBy = "John",
+                ),
             )
             Then("게시글이 정상적으로 생성된다.") {
                 boardId shouldBeGreaterThan 0L
@@ -67,8 +67,8 @@ class BoardServiceTest(
                 UpdateBoardRequestDto(
                     title = "수정 제목",
                     content = "수정 내용",
-                    updatedBy = "John"
-                )
+                    updatedBy = "John",
+                ),
             )
             Then("게시글이 정상적으로 수정된다.") {
                 savedBoard.id shouldNotBe null
@@ -86,8 +86,8 @@ class BoardServiceTest(
                         UpdateBoardRequestDto(
                             title = "수정 제목",
                             content = "수정 내용",
-                            updatedBy = "John"
-                        )
+                            updatedBy = "John",
+                        ),
                     )
                 }
             }
@@ -100,8 +100,8 @@ class BoardServiceTest(
                         UpdateBoardRequestDto(
                             title = "수정 제목",
                             content = "수정 내용",
-                            updatedBy = "Mike"
-                        )
+                            updatedBy = "Mike",
+                        ),
                     )
                 }
             }
@@ -115,7 +115,7 @@ class BoardServiceTest(
         `when`("정상 삭제 요청 시") {
             val deletedBoardId = boardService.deleteBoard(
                 savedBoard.id!!,
-                createdBy
+                createdBy,
             )
             Then("게시글이 정상적으로 삭제된다.") {
                 deletedBoardId shouldNotBe null
@@ -131,7 +131,7 @@ class BoardServiceTest(
                 shouldThrow<BoardCreatedByNotMatchException> {
                     boardService.deleteBoard(
                         savedBoard2.id!!,
-                        "John"
+                        "John",
                     )
                 }
             }
@@ -141,7 +141,7 @@ class BoardServiceTest(
                 shouldThrow<BoardNotFoundException> {
                     boardService.deleteBoard(
                         999L,
-                        "Mike"
+                        "Mike",
                     )
                 }
             }
@@ -185,4 +185,4 @@ class BoardServiceTest(
             result.content.size shouldBe 1
         }
     }
-})
+},)

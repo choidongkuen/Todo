@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException
 @Service
 class TodoService(
     // 동일 파일, 클래스 내에서만 접근 가능
-    private val todoRepository: TodoRepository
+    private val todoRepository: TodoRepository,
 ) {
     @Transactional(readOnly = true)
     fun findAll(): List<Todo> =
@@ -34,7 +34,7 @@ class TodoService(
         val todo = Todo(
             title = request.title,
             description = request.description,
-            done = request.done
+            done = request.done,
         )
         return todoRepository.save(todo)
     }

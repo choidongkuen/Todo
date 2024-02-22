@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus
 data class ErrorResponse(
     val message: String,
     val errorName: String,
-    val code: Int
+    val code: Int,
 ) {
     companion object {
         fun of(exception: Exception, httpStatus: HttpStatus) =

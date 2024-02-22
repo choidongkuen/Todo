@@ -20,7 +20,7 @@ import org.springframework.data.repository.findByIdOrNull
 class CommentServiceTest(
     private val commentService: CommentService,
     private val commentRepository: CommentRepository,
-    private val boardRepository: BoardRepository
+    private val boardRepository: BoardRepository,
 ) : BehaviorSpec({
     beforeSpec {
         boardRepository.saveAll(listOf(Board(title = "제목", content = "내용", createdBy = "John")))
@@ -33,7 +33,7 @@ class CommentServiceTest(
         `when`("댓글 생성 요청이 정상적으로 들어오면") {
             val commentId = commentService.createComment(
                 savedComment.id ?: 0L,
-                CreateCommentRequestDto(content = "내용", createdBy = "John")
+                CreateCommentRequestDto(content = "내용", createdBy = "John"),
             )
             then("댓글이 생성된다.") {
                 val result = commentRepository.findByIdOrNull(commentId)
@@ -48,7 +48,7 @@ class CommentServiceTest(
                 shouldThrow<BoardNotFoundException> {
                     commentService.createComment(
                         999L,
-                        CreateCommentRequestDto(content = "내용", createdBy = "John")
+                        CreateCommentRequestDto(content = "내용", createdBy = "John"),
                     )
                 }
             }
@@ -60,7 +60,7 @@ class CommentServiceTest(
         `when`("댓글 수정 요청이 정상적으로 들어오면") {
             val result = commentService.updateComment(
                 comment.id!!,
-                UpdateCommentRequestDto(content = "수정 댓글", updatedBy = "John")
+                UpdateCommentRequestDto(content = "수정 댓글", updatedBy = "John"),
             )
             then("댓글이 수정된다.") {
                 result shouldBe comment.id
@@ -75,7 +75,7 @@ class CommentServiceTest(
                 shouldThrow<CommentCreatedByNotMatchWithUpdatedByException> {
                     commentService.updateComment(
                         comment.id!!,
-                        UpdateCommentRequestDto(content = "수정 댓글", updatedBy = "Mike")
+                        UpdateCommentRequestDto(content = "수정 댓글", updatedBy = "Mike"),
                     )
                 }
             }
@@ -98,4 +98,4 @@ class CommentServiceTest(
             }
         }
     }
-})
+},)

@@ -10,7 +10,7 @@ data class GetBoardDetailResponse(
     val content: String,
     val createdBy: String,
     val createdAt: LocalDateTime,
-    val comments: List<CommentResponse> = emptyList()
+    val comments: List<CommentResponse> = emptyList(),
 )
 
 fun GetBoardDetailResponse.toResponse() = GetBoardDetailResponse(
@@ -18,5 +18,5 @@ fun GetBoardDetailResponse.toResponse() = GetBoardDetailResponse(
     title = title,
     content = content,
     createdBy = createdBy,
-    createdAt = createdAt
+    createdAt = createdAt,
 )

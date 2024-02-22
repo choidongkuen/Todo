@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.todo.domain.entity.Todo
 
 class TodoListResponse(
-    val items: List<TodoResponse>
+    val items: List<TodoResponse>,
 ) {
     val size: Int
         // 응답 필드에서 무시

@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class CommentService(
     private val commentRepository: CommentRepository,
-    private val boardService: BoardService
+    private val boardService: BoardService,
 ) {
     @Transactional
     fun createComment(id: Long, request: CreateCommentRequestDto): Long {
@@ -53,7 +53,7 @@ class CommentService(
 
     private fun checkCreatedByIsMatchWithUpdatedBy(
         comment: Comment,
-        request: UpdateCommentRequestDto
+        request: UpdateCommentRequestDto,
     ) {
         if (comment.createdBy != request.updatedBy) {
             throw CommentCreatedByNotMatchWithUpdatedByException("댓글을 수정할 수 없습니다.")
@@ -62,7 +62,7 @@ class CommentService(
 
     private fun checkCreatedByIsMatchWithDeletedBy(
         comment: Comment,
-        deletedBy: String
+        deletedBy: String,
     ) {
         if (comment.createdBy != deletedBy) {
             throw CommentCreatedByNotMatchWithDeletedByException("댓글을 삭제할 수 없습니다.")
