@@ -48,8 +48,8 @@ open class Board(
         title = request.title
         content = request.content
         updatedBy = request.updatedBy
-        val toTagEntity = request.tags.map { Tag (null,it,this,this.createdBy)}
-        if(this.tags != toTagEntity) {
+        val toTagEntity = request.tags.map { Tag(null, it, this, this.createdBy) }
+        if (this.tags != toTagEntity) {
             updateTags(toTagEntity)
         }
     }
