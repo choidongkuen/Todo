@@ -11,14 +11,15 @@ data class GetBoardDetailResponse(
     val content: String,
     val createdBy: String,
     val createdAt: LocalDateTime,
-    val comments: MutableList<CommentResponse>
+    val comments: MutableList<CommentResponse>,
 )
 
-fun Board.toGetBoardDetailResponse() = GetBoardDetailResponse(
+fun Board.toGetBoardDetailResponse() =
+    GetBoardDetailResponse(
         id = id,
         title = title,
         content = content,
         createdBy = createdBy,
         createdAt = createdAt,
-        comments = comments.map{ it.toCommentResponse() }.toMutableList(),
+        comments = comments.map { it.toCommentResponse() }.toMutableList(),
     )

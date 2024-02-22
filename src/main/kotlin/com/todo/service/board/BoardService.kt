@@ -2,8 +2,8 @@ package com.todo.service.board
 
 import com.todo.api.dto.board.GetBoardDetailResponse
 import com.todo.api.dto.board.GetBoardResponse
-import com.todo.api.dto.board.toGetBoardResponse
 import com.todo.api.dto.board.toGetBoardDetailResponse
+import com.todo.api.dto.board.toGetBoardResponse
 import com.todo.domain.entity.Board
 import com.todo.domain.repository.BoardRepository
 import com.todo.exception.BoardCreatedByNotMatchException

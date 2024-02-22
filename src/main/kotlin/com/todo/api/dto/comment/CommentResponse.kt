@@ -10,10 +10,10 @@ data class CommentResponse(
     val createdAt: LocalDateTime,
 )
 
-
-fun Comment.toResponse() = CommentResponse(
-    id = id ?: 0L,
-    content = content,
-    createdBy = createdBy,
-    createdAt = createdAt,
-)
+fun Comment.toResponse() =
+    CommentResponse(
+        id = id ?: 0L,
+        content = content,
+        createdBy = createdBy,
+        createdAt = createdAt,
+    )

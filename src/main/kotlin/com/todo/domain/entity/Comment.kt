@@ -6,7 +6,6 @@ import com.todo.service.comment.dto.UpdateCommentRequestDto
 import jakarta.persistence.Column
 import jakarta.persistence.ConstraintMode
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.ForeignKey
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -44,10 +43,11 @@ class Comment(
         updatedBy = request.updatedBy
     }
 
-    fun toCommentResponse() = CommentResponse(
-        id = id ?: 0L,
-        content = content,
-        createdBy = createdBy,
-        createdAt = createdAt,
-    )
+    fun toCommentResponse() =
+        CommentResponse(
+            id = id ?: 0L,
+            content = content,
+            createdBy = createdBy,
+            createdAt = createdAt,
+        )
 }

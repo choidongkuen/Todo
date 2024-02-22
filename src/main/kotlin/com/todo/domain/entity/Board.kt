@@ -1,6 +1,5 @@
 package com.todo.domain.entity
 
-import com.todo.api.dto.board.GetBoardDetailResponse
 import com.todo.api.dto.board.GetBoardResponse
 import com.todo.core.entity.BaseTimeEntity
 import com.todo.service.board.dto.UpdateBoardRequestDto
