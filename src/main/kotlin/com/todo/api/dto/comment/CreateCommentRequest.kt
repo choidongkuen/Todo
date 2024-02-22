@@ -10,5 +10,5 @@ data class CreateCommentRequest(
 
 fun CreateCommentRequest.toDto() = CreateCommentRequestDto(
     content = content,
-    createdBy = createdBy
+    createdBy = createdBy,
 )
