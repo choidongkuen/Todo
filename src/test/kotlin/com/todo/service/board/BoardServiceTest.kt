@@ -168,14 +168,21 @@ class BoardServiceTest(
                 }
             }
             `when`("댓글 추가 시") {
-                val savedComment = commentRepository.save(Comment(content = "댓글", createdBy = "John", board = savedBoard))
+                val comment01 = commentRepository.save(Comment(content = "댓글1", createdBy = "John", board = savedBoard))
+                val comment02 = commentRepository.save(Comment(content = "댓글2", createdBy = "John", board = savedBoard))
+                val comment03 = commentRepository.save(Comment(content = "댓글3", createdBy = "John", board = savedBoard))
+
                 val foundBoard = boardService.getBoard(savedBoard.id!!)
+
                 then("댓글과 함께 게시글에 대한 상세 조회 응답이 반환된다.") {
+                    comment01.board shouldBe savedBoard
+                    foundBoard.title shouldBe "제목"
+                    foundBoard.comments.size shouldBe 3
                 }
             }
         }
         given("게시글 목록 조회 시") {
-            `when`("조건 없이 정상적인 목록 조회 요청 시") {
+            `when`("조건 없이 정상적인 목록 조회 ㅁ요청 시") {
                 val result = boardService.getBoardsBySearch(PageRequest.of(0, 5), GetBoardsRequestDto())
                 then("게시글에 대한 목록 조회 응답이 반환된다.") {
                     result.size shouldBe 5
