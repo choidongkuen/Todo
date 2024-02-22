@@ -1,6 +1,5 @@
 package com.todo.domain.entity
 
-import com.todo.api.dto.board.GetBoardDetailResponse
 import com.todo.api.dto.board.GetBoardResponse
 import com.todo.core.entity.BaseTimeEntity
 import com.todo.service.board.dto.UpdateBoardRequestDto
@@ -17,12 +16,9 @@ open class Board(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-
     title: String,
-
     content: String,
-
-    createdBy: String
+    createdBy: String,
 ) : BaseTimeEntity() {
     @Column(name = "title", nullable = false)
     var title: String = title
@@ -41,7 +37,7 @@ open class Board(
         protected set
 
     @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = [CascadeType.ALL])
-    var comments: List<Comment>? = mutableListOf()
+    var comments: MutableList<Comment> = mutableListOf()
         protected set
 
     fun updateBoard(request: UpdateBoardRequestDto) {
@@ -50,18 +46,11 @@ open class Board(
         updatedBy = request.updatedBy
     }
 
-    fun toBoardDetailResponse() = GetBoardDetailResponse(
-        id = id,
-        title = this.title,
-        content = this.content,
-        createdBy = this.createdBy,
-        createdAt = this.createdAt
-    )
-
-    fun toGetBoardResponse() = GetBoardResponse(
-        id = id,
-        title = title,
-        createdBy = createdBy,
-        createdAt = createdAt
-    )
+    fun toGetBoardResponse() =
+        GetBoardResponse(
+            id = id,
+            title = title,
+            createdBy = createdBy,
+            createdAt = createdAt,
+        )
 }

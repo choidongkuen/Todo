@@ -14,7 +14,6 @@ import org.springframework.data.repository.findByIdOrNull
 
 @SpringBootTest
 class TodoServiceTest {
-
     @MockkBean
     lateinit var repository: TodoRepository
 
@@ -26,7 +25,7 @@ class TodoServiceTest {
             id = 1,
             title = "테스트",
             description = "테스트 상세",
-            done = false
+            done = false,
         )
     }
 

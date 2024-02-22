@@ -11,23 +11,27 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 interface BoardRepository : JpaRepository<Board, Long>, CustomBoardRepository
 
 interface CustomBoardRepository {
-    fun findPageBy(pageRequest: org.springframework.data.domain.Pageable, getBoardsRequest: GetBoardsRequestDto): Page<Board>
+    fun findPageBy(
+        pageRequest: org.springframework.data.domain.Pageable,
+        getBoardsRequest: GetBoardsRequestDto,
+    ): Page<Board>
 }
 
 class CustomBoardRepositoryImpl : CustomBoardRepository, QuerydslRepositorySupport(Board::class.java) {
     override fun findPageBy(
         pageRequest: org.springframework.data.domain.Pageable,
-        getBoardsRequest: GetBoardsRequestDto
+        getBoardsRequest: GetBoardsRequestDto,
     ): Page<Board> {
-        val result = from(board)
-            .where(
-                getBoardsRequest.title?.let { board.title.contains(it) },
-                getBoardsRequest.createdBy?.let { board.createdBy.eq(it) }
-            )
-            .orderBy(board.createdAt.desc()) // 최신순
-            .offset(pageRequest.offset) // 시작
-            .limit(pageRequest.pageSize.toLong()) // 개수
-            .fetchResults()
+        val result =
+            from(board)
+                .where(
+                    getBoardsRequest.title?.let { board.title.contains(it) },
+                    getBoardsRequest.createdBy?.let { board.createdBy.eq(it) },
+                )
+                .orderBy(board.createdAt.desc()) // 최신순
+                .offset(pageRequest.offset) // 시작
+                .limit(pageRequest.pageSize.toLong()) // 개수
+                .fetchResults()
         return PageImpl(result.results, pageRequest, result.total)
     }
 }

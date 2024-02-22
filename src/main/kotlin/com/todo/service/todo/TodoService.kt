@@ -14,11 +14,10 @@ import org.springframework.web.server.ResponseStatusException
 @Service
 class TodoService(
     // 동일 파일, 클래스 내에서만 접근 가능
-    private val todoRepository: TodoRepository
+    private val todoRepository: TodoRepository,
 ) {
     @Transactional(readOnly = true)
-    fun findAll(): List<Todo> =
-        todoRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
+    fun findAll(): List<Todo> = todoRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
 
     @Transactional(readOnly = true)
     fun findById(id: Long): Todo =
@@ -31,16 +30,20 @@ class TodoService(
         // checkNotNull 호출하고 나면 Not Null 로 변경
         checkNotNull(request) { "TodoRequest is null" }
 
-        val todo = Todo(
-            title = request.title,
-            description = request.description,
-            done = request.done
-        )
+        val todo =
+            Todo(
+                title = request.title,
+                description = request.description,
+                done = request.done,
+            )
         return todoRepository.save(todo)
     }
 
     @Transactional
-    fun update(id: Long, request: TodoRequest?): Todo {
+    fun update(
+        id: Long,
+        request: TodoRequest?,
+    ): Todo {
         checkNotNull(request) { "TodoRequest is null" }
 
         return findById(id).let {
@@ -55,8 +58,9 @@ class TodoService(
     fun approve(id: Long) {
         validate(id)
 
-        val todo: Todo? = todoRepository.findById(id)
-            .orElseThrow { NullPointerException() }
+        val todo: Todo? =
+            todoRepository.findById(id)
+                .orElseThrow { NullPointerException() }
 
         todo?.approve()
     }

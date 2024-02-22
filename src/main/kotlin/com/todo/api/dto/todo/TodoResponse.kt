@@ -9,9 +9,8 @@ data class TodoResponse(
     val description: String,
     val done: Boolean,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime,
 ) {
-
     // Todo -> TodoResponse
     companion object {
         fun of(todo: Todo?): TodoResponse {
@@ -25,7 +24,7 @@ data class TodoResponse(
                 description = todo.description,
                 done = todo.done,
                 createdAt = todo.createdAt,
-                updatedAt = todo.updatedAt
+                updatedAt = todo.updatedAt,
             )
         }
     }

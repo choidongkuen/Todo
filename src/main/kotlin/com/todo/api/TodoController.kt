@@ -17,35 +17,35 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/todos")
 class TodoController(
-    private val todoService: TodoService
+    private val todoService: TodoService,
 ) {
-
     // 모든 todo list 조회
     @GetMapping
-    fun getAll() =
-        ok(TodoListResponse.of(todoService.findAll()))
+    fun getAll() = ok(TodoListResponse.of(todoService.findAll()))
 
     // 특정 todo 조회
     @GetMapping("/{id}")
-    fun get(@PathVariable id: Long) =
-        ok(TodoResponse.of(todoService.findById(id)))
+    fun get(
+        @PathVariable id: Long,
+    ) = ok(TodoResponse.of(todoService.findById(id)))
 
     // todo 생성
     @PostMapping
-    fun create(@RequestBody request: TodoRequest) =
-        ok(todoService.create(request))
+    fun create(
+        @RequestBody request: TodoRequest,
+    ) = ok(todoService.create(request))
 
     // todo 업데이트
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: Long,
-        @RequestBody request: TodoRequest
+        @RequestBody request: TodoRequest,
     ) = ok(TodoResponse.of(todoService.update(id, request)))
 
     // todo 삭제
     @DeleteMapping("/{id}")
     fun delete(
-        @PathVariable id: Long
+        @PathVariable id: Long,
     ) {
         todoService.delete(id)
     }

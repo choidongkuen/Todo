@@ -2,6 +2,7 @@ package com.todo.service.board
 
 import com.todo.api.dto.board.GetBoardDetailResponse
 import com.todo.api.dto.board.GetBoardResponse
+import com.todo.api.dto.board.toGetBoardDetailResponse
 import com.todo.api.dto.board.toGetBoardResponse
 import com.todo.domain.entity.Board
 import com.todo.domain.repository.BoardRepository
@@ -20,9 +21,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class BoardService(
-    private val boardRepository: BoardRepository
+    private val boardRepository: BoardRepository,
 ) {
-
     @Transactional
     fun creatBoard(request: CreateBoardRequestDto): Long {
         val savedBoard = boardRepository.save(request.toEntity())
@@ -30,46 +30,55 @@ class BoardService(
     }
 
     @Transactional
-    fun updateBoard(id: Long, request: UpdateBoardRequestDto): Long {
+    fun updateBoard(
+        id: Long,
+        request: UpdateBoardRequestDto,
+    ): Long {
         val board = getBoardById(id)
-        checkCreatedByIsMatch(board, request)
+        checkCreatedByIsMatchWithUpdatedAt(board, request)
         board.updateBoard(request)
         return id
     }
 
     @Transactional
-    fun deleteBoard(id: Long, createdBy: String): Long {
+    fun deleteBoard(
+        id: Long,
+        createdBy: String,
+    ): Long {
         val board = getBoardById(id)
-        checkCreatedByIsMatch(board, createdBy)
+        checkCreatedByIsMatchWithDeletedBy(board, createdBy)
         boardRepository.delete(board)
         return id
     }
 
     fun getBoard(id: Long): GetBoardDetailResponse {
-        return getBoardById(id).toBoardDetailResponse()
+        return getBoardById(id).toGetBoardDetailResponse()
     }
 
-    fun getBoardsBySearch(pageRequest: Pageable, getBoardsRequest: GetBoardsRequestDto): Page<GetBoardResponse> {
+    fun getBoardsBySearch(
+        pageRequest: Pageable,
+        getBoardsRequest: GetBoardsRequestDto,
+    ): Page<GetBoardResponse> {
         return boardRepository.findPageBy(pageRequest, getBoardsRequest).toGetBoardResponse()
     }
 
-    private fun getBoardById(id: Long): Board {
+    fun getBoardById(id: Long): Board {
         return boardRepository.findByIdOrNull(id)
             ?: throw BoardNotFoundException("해당 게시글이 존재하지 않습니다.")
     }
 
-    private fun checkCreatedByIsMatch(
+    private fun checkCreatedByIsMatchWithUpdatedAt(
         board: Board,
-        request: UpdateBoardRequestDto
+        request: UpdateBoardRequestDto,
     ) {
         if (board.createdBy != request.updatedBy) {
             throw BoardCreatedByNotMatchException("수정할 수 없는 게시글입니다.")
         }
     }
 
-    private fun checkCreatedByIsMatch(
+    private fun checkCreatedByIsMatchWithDeletedBy(
         board: Board,
-        createdBy: String
+        createdBy: String,
     ) {
         if (board.createdBy != createdBy) {
             throw BoardCreatedByNotMatchException("삭제할 수 없는 게시글입니다.")

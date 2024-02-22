@@ -20,39 +20,33 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/boards")
 class BoardController(
-    private val boardService: BoardService
+    private val boardService: BoardService,
 ) {
-
     @PostMapping
     fun createBoard(
-        @RequestBody createBoardRequest: CreateBoardRequest
-    ) =
-        ok(boardService.creatBoard(createBoardRequest.toCreateBoardRequestDto()))
+        @RequestBody createBoardRequest: CreateBoardRequest,
+    ) = ok(boardService.creatBoard(createBoardRequest.toCreateBoardRequestDto()))
 
     @PutMapping("/{id}")
     fun updateBoard(
         @PathVariable id: Long,
-        @RequestBody updateBoardRequest: UpdateBoardRequest
-    ) =
-        ok(boardService.updateBoard(id, updateBoardRequest.toUpdateBoardRequestDto()))
+        @RequestBody updateBoardRequest: UpdateBoardRequest,
+    ) = ok(boardService.updateBoard(id, updateBoardRequest.toUpdateBoardRequestDto()))
 
     @DeleteMapping("/{id}")
     fun deleteBoard(
         @PathVariable id: Long,
-        @RequestParam createdBy: String
-    ) =
-        ok(boardService.deleteBoard(id, createdBy))
+        @RequestParam createdBy: String,
+    ) = ok(boardService.deleteBoard(id, createdBy))
 
     @GetMapping("/{id}")
     fun getBoard(
-        @PathVariable id: Long
-    ) =
-        ok(boardService.getBoard(id))
+        @PathVariable id: Long,
+    ) = ok(boardService.getBoard(id))
 
     @GetMapping
     fun getBoardsBySearch(
         pageable: Pageable,
-        getBoardsRequest: GetBoardsRequest
-    ) =
-        ok(boardService.getBoardsBySearch(pageable, getBoardsRequest.toDto()))
+        getBoardsRequest: GetBoardsRequest,
+    ) = ok(boardService.getBoardsBySearch(pageable, getBoardsRequest.toDto()))
 }
