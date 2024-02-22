@@ -38,7 +38,7 @@ open class Board(
         protected set
 
     @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = [CascadeType.ALL])
-    var comments: List<Comment>? = mutableListOf()
+    var comments: MutableList<Comment> = mutableListOf()
         protected set
 
     fun updateBoard(request: UpdateBoardRequestDto) {
@@ -46,15 +46,6 @@ open class Board(
         content = request.content
         updatedBy = request.updatedBy
     }
-
-    fun toBoardDetailResponse() =
-        GetBoardDetailResponse(
-            id = id,
-            title = this.title,
-            content = this.content,
-            createdBy = this.createdBy,
-            createdAt = this.createdAt,
-        )
 
     fun toGetBoardResponse() =
         GetBoardResponse(
