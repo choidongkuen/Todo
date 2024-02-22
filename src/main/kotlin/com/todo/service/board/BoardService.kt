@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional
 class BoardService(
     private val boardRepository: BoardRepository,
 ) {
-
     @Transactional
     fun creatBoard(request: CreateBoardRequestDto): Long {
         val savedBoard = boardRepository.save(request.toEntity())
@@ -30,7 +29,10 @@ class BoardService(
     }
 
     @Transactional
-    fun updateBoard(id: Long, request: UpdateBoardRequestDto): Long {
+    fun updateBoard(
+        id: Long,
+        request: UpdateBoardRequestDto,
+    ): Long {
         val board = getBoardById(id)
         checkCreatedByIsMatchWithUpdatedAt(board, request)
         board.updateBoard(request)
@@ -38,7 +40,10 @@ class BoardService(
     }
 
     @Transactional
-    fun deleteBoard(id: Long, createdBy: String): Long {
+    fun deleteBoard(
+        id: Long,
+        createdBy: String,
+    ): Long {
         val board = getBoardById(id)
         checkCreatedByIsMatchWithDeletedBy(board, createdBy)
         boardRepository.delete(board)
@@ -49,7 +54,10 @@ class BoardService(
         return getBoardById(id).toBoardDetailResponse()
     }
 
-    fun getBoardsBySearch(pageRequest: Pageable, getBoardsRequest: GetBoardsRequestDto): Page<GetBoardResponse> {
+    fun getBoardsBySearch(
+        pageRequest: Pageable,
+        getBoardsRequest: GetBoardsRequestDto,
+    ): Page<GetBoardResponse> {
         return boardRepository.findPageBy(pageRequest, getBoardsRequest).toGetBoardResponse()
     }
 

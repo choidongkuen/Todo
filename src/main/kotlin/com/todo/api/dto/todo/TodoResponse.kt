@@ -11,7 +11,6 @@ data class TodoResponse(
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 ) {
-
     // Todo -> TodoResponse
     companion object {
         fun of(todo: Todo?): TodoResponse {

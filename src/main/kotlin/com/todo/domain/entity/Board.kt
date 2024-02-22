@@ -17,11 +17,8 @@ open class Board(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-
     title: String,
-
     content: String,
-
     createdBy: String,
 ) : BaseTimeEntity() {
     @Column(name = "title", nullable = false)
@@ -50,18 +47,20 @@ open class Board(
         updatedBy = request.updatedBy
     }
 
-    fun toBoardDetailResponse() = GetBoardDetailResponse(
-        id = id,
-        title = this.title,
-        content = this.content,
-        createdBy = this.createdBy,
-        createdAt = this.createdAt,
-    )
+    fun toBoardDetailResponse() =
+        GetBoardDetailResponse(
+            id = id,
+            title = this.title,
+            content = this.content,
+            createdBy = this.createdBy,
+            createdAt = this.createdAt,
+        )
 
-    fun toGetBoardResponse() = GetBoardResponse(
-        id = id,
-        title = title,
-        createdBy = createdBy,
-        createdAt = createdAt,
-    )
+    fun toGetBoardResponse() =
+        GetBoardResponse(
+            id = id,
+            title = title,
+            createdBy = createdBy,
+            createdAt = createdAt,
+        )
 }

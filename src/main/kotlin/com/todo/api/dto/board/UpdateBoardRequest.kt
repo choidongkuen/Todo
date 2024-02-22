@@ -8,9 +8,10 @@ data class UpdateBoardRequest(
     val content: String,
     val updatedBy: String,
 ) {
-    fun toUpdateBoardRequestDto() = UpdateBoardRequestDto(
-        title = this.title,
-        content = this.content,
-        updatedBy = this.updatedBy,
-    )
+    fun toUpdateBoardRequestDto() =
+        UpdateBoardRequestDto(
+            title = this.title,
+            content = this.content,
+            updatedBy = this.updatedBy,
+        )
 }

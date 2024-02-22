@@ -13,10 +13,11 @@ data class GetBoardDetailResponse(
     val comments: List<CommentResponse> = emptyList(),
 )
 
-fun GetBoardDetailResponse.toResponse() = GetBoardDetailResponse(
-    id = id,
-    title = title,
-    content = content,
-    createdBy = createdBy,
-    createdAt = createdAt,
-)
+fun GetBoardDetailResponse.toResponse() =
+    GetBoardDetailResponse(
+        id = id,
+        title = title,
+        content = content,
+        createdBy = createdBy,
+        createdAt = createdAt,
+    )

@@ -8,14 +8,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice(basePackageClasses = [BoardController::class])
 class BoardExceptionHandler {
-
     @ExceptionHandler(BoardNotFoundException::class)
-    fun handleBoardNotFoundException(exception: BoardNotFoundException): ResponseEntity<ErrorResponse> =
-        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(exception, HttpStatus.BAD_REQUEST))
+    fun handleBoardNotFoundException(exception: BoardNotFoundException): ResponseEntity<ErrorResponse> = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(exception, HttpStatus.BAD_REQUEST))
 
     @ExceptionHandler(BoardCreatedByNotMatchException::class)
-    fun handleBoardNotFoundException(exception: BoardCreatedByNotMatchException): ResponseEntity<ErrorResponse> =
-        ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(exception, HttpStatus.BAD_REQUEST))
+    fun handleBoardNotFoundException(exception: BoardCreatedByNotMatchException): ResponseEntity<ErrorResponse> = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponse.of(exception, HttpStatus.BAD_REQUEST))
 
     @ExceptionHandler(Exception::class)
     fun handlerInternalServerException(exception: Exception): ResponseEntity<ErrorResponse> =

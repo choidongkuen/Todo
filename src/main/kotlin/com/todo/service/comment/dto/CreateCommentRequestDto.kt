@@ -8,8 +8,9 @@ data class CreateCommentRequestDto(
     val createdBy: String,
 )
 
-fun CreateCommentRequestDto.toEntity(board: Board) = Comment(
-    content = content,
-    createdBy = createdBy,
-    board = board,
-)
+fun CreateCommentRequestDto.toEntity(board: Board) =
+    Comment(
+        content = content,
+        createdBy = createdBy,
+        board = board,
+    )

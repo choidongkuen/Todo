@@ -15,7 +15,6 @@ class TodoListResponse(
 
     companion object {
         // List<Todo> -> List<TodoResponse>
-        fun of(todoList: List<Todo>): TodoListResponse =
-            TodoListResponse(todoList.map(TodoResponse.Companion::of))
+        fun of(todoList: List<Todo>): TodoListResponse = TodoListResponse(todoList.map(TodoResponse.Companion::of))
     }
 }

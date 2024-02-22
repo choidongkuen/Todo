@@ -13,8 +13,9 @@ data class GetBoardResponse(
     val createdAt: LocalDateTime,
 )
 
-fun Page<Board>.toGetBoardResponse() = PageImpl(
-    content.map { it.toGetBoardResponse() },
-    pageable,
-    totalElements,
-)
+fun Page<Board>.toGetBoardResponse() =
+    PageImpl(
+        content.map { it.toGetBoardResponse() },
+        pageable,
+        totalElements,
+    )

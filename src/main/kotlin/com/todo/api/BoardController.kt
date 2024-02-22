@@ -22,37 +22,31 @@ import org.springframework.web.bind.annotation.RestController
 class BoardController(
     private val boardService: BoardService,
 ) {
-
     @PostMapping
     fun createBoard(
         @RequestBody createBoardRequest: CreateBoardRequest,
-    ) =
-        ok(boardService.creatBoard(createBoardRequest.toCreateBoardRequestDto()))
+    ) = ok(boardService.creatBoard(createBoardRequest.toCreateBoardRequestDto()))
 
     @PutMapping("/{id}")
     fun updateBoard(
         @PathVariable id: Long,
         @RequestBody updateBoardRequest: UpdateBoardRequest,
-    ) =
-        ok(boardService.updateBoard(id, updateBoardRequest.toUpdateBoardRequestDto()))
+    ) = ok(boardService.updateBoard(id, updateBoardRequest.toUpdateBoardRequestDto()))
 
     @DeleteMapping("/{id}")
     fun deleteBoard(
         @PathVariable id: Long,
         @RequestParam createdBy: String,
-    ) =
-        ok(boardService.deleteBoard(id, createdBy))
+    ) = ok(boardService.deleteBoard(id, createdBy))
 
     @GetMapping("/{id}")
     fun getBoard(
         @PathVariable id: Long,
-    ) =
-        ok(boardService.getBoard(id))
+    ) = ok(boardService.getBoard(id))
 
     @GetMapping
     fun getBoardsBySearch(
         pageable: Pageable,
         getBoardsRequest: GetBoardsRequest,
-    ) =
-        ok(boardService.getBoardsBySearch(pageable, getBoardsRequest.toDto()))
+    ) = ok(boardService.getBoardsBySearch(pageable, getBoardsRequest.toDto()))
 }

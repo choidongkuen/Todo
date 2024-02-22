@@ -14,7 +14,6 @@ import org.springframework.data.repository.findByIdOrNull
 
 @SpringBootTest
 class TodoServiceTest {
-
     @MockkBean
     lateinit var repository: TodoRepository
 

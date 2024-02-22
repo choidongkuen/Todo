@@ -8,7 +8,8 @@ data class GetBoardsRequest(
     val createdBy: String? = null,
 )
 
-fun GetBoardsRequest.toDto() = GetBoardsRequestDto(
-    title = title,
-    createdBy = createdBy,
-)
+fun GetBoardsRequest.toDto() =
+    GetBoardsRequestDto(
+        title = title,
+        createdBy = createdBy,
+    )

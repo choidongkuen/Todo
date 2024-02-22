@@ -21,14 +21,20 @@ class CommentService(
     private val boardService: BoardService,
 ) {
     @Transactional
-    fun createComment(id: Long, request: CreateCommentRequestDto): Long {
+    fun createComment(
+        id: Long,
+        request: CreateCommentRequestDto,
+    ): Long {
         val board = getBoardById(id)
         val savedComment = commentRepository.save(request.toEntity(board))
         return savedComment.id ?: throw IllegalStateException("Comment must not be null")
     }
 
     @Transactional
-    fun updateComment(id: Long, request: UpdateCommentRequestDto): Long {
+    fun updateComment(
+        id: Long,
+        request: UpdateCommentRequestDto,
+    ): Long {
         val comment = getCommentById(id)
         checkCreatedByIsMatchWithUpdatedBy(comment, request)
         comment.updateComment(request)
@@ -36,7 +42,10 @@ class CommentService(
     }
 
     @Transactional
-    fun deleteComment(id: Long, deleteBy: String) {
+    fun deleteComment(
+        id: Long,
+        deleteBy: String,
+    ) {
         val comment = getCommentById(id)
         checkCreatedByIsMatchWithDeletedBy(comment, deleteBy)
         commentRepository.delete(comment)

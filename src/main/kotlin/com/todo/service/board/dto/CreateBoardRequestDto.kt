@@ -8,8 +8,9 @@ data class CreateBoardRequestDto(
     val createdBy: String,
 )
 
-fun CreateBoardRequestDto.toEntity(): Board = Board(
-    title = title,
-    content = content,
-    createdBy = createdBy,
-)
+fun CreateBoardRequestDto.toEntity(): Board =
+    Board(
+        title = title,
+        content = content,
+        createdBy = createdBy,
+    )

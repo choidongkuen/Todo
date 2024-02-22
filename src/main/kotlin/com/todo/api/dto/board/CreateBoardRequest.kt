@@ -8,9 +8,10 @@ data class CreateBoardRequest(
     val content: String,
     val createdBy: String,
 ) {
-    fun toCreateBoardRequestDto() = CreateBoardRequestDto(
-        title = this.title,
-        content = this.content,
-        createdBy = this.createdBy,
-    )
+    fun toCreateBoardRequestDto() =
+        CreateBoardRequestDto(
+            title = this.title,
+            content = this.content,
+            createdBy = this.createdBy,
+        )
 }
