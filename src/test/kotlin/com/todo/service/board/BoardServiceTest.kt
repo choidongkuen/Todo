@@ -1,7 +1,9 @@
 package com.todo.service.board
 
 import com.todo.domain.entity.Board
+import com.todo.domain.entity.Comment
 import com.todo.domain.repository.BoardRepository
+import com.todo.domain.repository.CommentRepository
 import com.todo.exception.BoardCreatedByNotMatchException
 import com.todo.exception.BoardNotFoundException
 import com.todo.service.board.dto.CreateBoardRequestDto
@@ -21,6 +23,7 @@ import org.springframework.data.repository.findByIdOrNull
 class BoardServiceTest(
     private val boardService: BoardService,
     private val boardRepository: BoardRepository,
+    private val commentRepository: CommentRepository,
 ) : BehaviorSpec({
     beforeSpec {
         boardRepository.saveAll(
@@ -161,6 +164,14 @@ class BoardServiceTest(
             then("해당 게시글이 존재하지 않습니다 예외 응답을 반환한다.") {
                 shouldThrow<BoardNotFoundException> { boardService.getBoard(999L) }
             }
+        }
+        `when`("댓글 추가 시") {
+            val savedComment = commentRepository.save(Comment(content = "댓글", createdBy = "John", board = savedBoard))
+            val foundBoard = boardService.getBoard(savedBoard.id!!)
+            then("댓글과 함께 게시글에 대한 상세 조회 응답이 반환된다.") {
+
+            }
+
         }
     }
     given("게시글 목록 조회 시") {

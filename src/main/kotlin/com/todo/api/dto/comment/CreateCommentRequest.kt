@@ -8,7 +8,8 @@ data class CreateCommentRequest(
     val createdBy: String,
 )
 
-fun CreateCommentRequest.toDto() = CreateCommentRequestDto(
-    content = content,
-    createdBy = createdBy,
-)
+fun CreateCommentRequest.toDto() =
+    CreateCommentRequestDto(
+        content = content,
+        createdBy = createdBy,
+    )
