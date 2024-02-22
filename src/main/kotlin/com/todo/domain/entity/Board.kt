@@ -48,6 +48,10 @@ open class Board(
         title = request.title
         content = request.content
         updatedBy = request.updatedBy
+        val toTagEntity = request.tags.map { Tag (null,it,this,this.createdBy)}
+        if(this.tags != toTagEntity) {
+            updateTags(toTagEntity)
+        }
     }
 
     fun toGetBoardResponse() =
@@ -57,4 +61,9 @@ open class Board(
             createdBy = createdBy,
             createdAt = createdAt,
         )
+
+    private fun updateTags(tags: List<Tag>) {
+        this.tags.clear()
+        this.tags.addAll(tags)
+    }
 }

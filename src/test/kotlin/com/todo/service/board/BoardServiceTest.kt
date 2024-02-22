@@ -4,6 +4,7 @@ import com.todo.domain.entity.Board
 import com.todo.domain.entity.Comment
 import com.todo.domain.repository.BoardRepository
 import com.todo.domain.repository.CommentRepository
+import com.todo.domain.repository.TageRepository
 import com.todo.exception.BoardCreatedByNotMatchException
 import com.todo.exception.BoardNotFoundException
 import com.todo.service.board.dto.CreateBoardRequestDto
@@ -24,38 +25,45 @@ class BoardServiceTest(
     private val boardService: BoardService,
     private val boardRepository: BoardRepository,
     private val commentRepository: CommentRepository,
-) : BehaviorSpec({
+    private val tagRepository: TageRepository,
+) : BehaviorSpec(
+    {
         beforeSpec {
             boardRepository.saveAll(
                 listOf(
-                    Board(title = "title11", content = "content1", createdBy = "Mike1"),
-                    Board(title = "title12", content = "content2", createdBy = "Mike2"),
-                    Board(title = "title13", content = "content3", createdBy = "Mike3"),
-                    Board(title = "title14", content = "content4", createdBy = "Mike4"),
-                    Board(title = "title15", content = "content5", createdBy = "Mike5"),
-                    Board(title = "title16", content = "content6", createdBy = "Mike6"),
-                    Board(title = "title17", content = "content7", createdBy = "Mike7"),
-                    Board(title = "title18", content = "content8", createdBy = "Mike8"),
+                    Board(title = "title11", content = "content1", createdBy = "Mike1", tags = listOf("tag1")),
+                    Board(title = "title12", content = "content2", createdBy = "Mike2", tags = listOf("tag1")),
+                    Board(title = "title13", content = "content3", createdBy = "Mike3", tags = listOf("tag1")),
+                    Board(title = "title14", content = "content4", createdBy = "Mike4", tags = listOf("tag1")),
+                    Board(title = "title15", content = "content5", createdBy = "Mike5", tags = listOf("tag1")),
+                    Board(title = "title16", content = "content6", createdBy = "Mike6", tags = listOf("tag1")),
+                    Board(title = "title17", content = "content7", createdBy = "Mike7", tags = listOf("tag1")),
+                    Board(title = "title18", content = "content8", createdBy = "Mike8", tags = listOf("tag1")),
                 ),
             )
         }
         given("게시글 생성시") {
             `when`("게시글 생성 요청이 정상적으로 들어오면") {
-                val boardId =
-                    boardService.creatBoard(
-                        CreateBoardRequestDto(
-                            title = "제목",
-                            content = "내용",
-                            createdBy = "John",
-                        ),
-                    )
+                val boardId = boardService.creatBoard(
+                    CreateBoardRequestDto(
+                        title = "제목",
+                        content = "내용",
+                        createdBy = "John",
+                        tags = listOf("tag1", "tag2"),
+                    ),
+                )
                 Then("게시글이 정상적으로 생성된다.") {
                     boardId shouldBeGreaterThan 0L
+                    // JPA 메소드는 기본적으로 TX 가 열린다. 후에 닫힘
                     val board = boardRepository.findByIdOrNull(boardId)
                     board shouldNotBe null
                     board?.id shouldNotBe null
                     board?.title shouldNotBe null
                     board?.createdBy shouldBe "John"
+
+                    val tags = tagRepository.findByBoard(board!!)
+                    tags.size shouldBe 2
+                    tags[0].name shouldContain "tag"
                 }
             }
         }
@@ -65,13 +73,13 @@ class BoardServiceTest(
             val savedBoard = boardRepository.save(board)
 
             `when`("게시글 수정 요청이 정상적으로 들어오면") {
-                val updatedId =
-                    boardService.updateBoard(
+                val updatedId = boardService.updateBoard(
                         savedBoard.id!!,
                         UpdateBoardRequestDto(
                             title = "수정 제목",
                             content = "수정 내용",
                             updatedBy = "John",
+                            tags = listOf("tag1", "tag2"),
                         ),
                     )
                 Then("게시글이 정상적으로 수정된다.") {
@@ -80,6 +88,24 @@ class BoardServiceTest(
                     updatedBoard shouldNotBe null
                     updatedBoard?.id shouldBe savedBoard.id
                     updatedBoard?.title shouldBe "수정 제목"
+                }
+            }
+            `when`("게시글 태그가 수정되었을 때") {
+                val updatedId = boardService.updateBoard(
+                    savedBoard.id!!,
+                    UpdateBoardRequestDto(
+                        title = "수정 제목",
+                        content = "수정 내용",
+                        updatedBy = "John",
+                        tags = listOf("tag4", "tag5"),
+                    ),
+                )
+                then("게시글이 정상적으로 수정된다.") {
+                    updatedId shouldNotBe null
+                    val updatedBoard = boardRepository.findByIdOrNull(updatedId)
+                    val tags = tagRepository.findByBoard(updatedBoard!!)
+                    tags.forEach{ it shouldNotBe "tag1"}
+
                 }
             }
             `when`("게시글이 없을 때") {
@@ -91,6 +117,7 @@ class BoardServiceTest(
                                 title = "수정 제목",
                                 content = "수정 내용",
                                 updatedBy = "John",
+                                tags = listOf("tag1", "tag2"),
                             ),
                         )
                     }
@@ -105,6 +132,7 @@ class BoardServiceTest(
                                 title = "수정 제목",
                                 content = "수정 내용",
                                 updatedBy = "Mike",
+                                tags = listOf("tag1", "tag2"),
                             ),
                         )
                     }
@@ -203,4 +231,5 @@ class BoardServiceTest(
                 result.content.size shouldBe 1
             }
         }
-    })
+    },
+)

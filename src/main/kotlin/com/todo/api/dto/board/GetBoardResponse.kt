@@ -11,6 +11,7 @@ data class GetBoardResponse(
     val title: String,
     val createdBy: String,
     val createdAt: LocalDateTime,
+    val tag: String? = null,
 )
 
 fun Page<Board>.toGetBoardResponse() =

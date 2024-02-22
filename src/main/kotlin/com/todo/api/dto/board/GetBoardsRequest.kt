@@ -6,6 +6,7 @@ import com.todo.service.board.dto.GetBoardsRequestDto
 data class GetBoardsRequest(
     val title: String? = null,
     val createdBy: String? = null,
+    val tag: String? = null,
 )
 
 fun GetBoardsRequest.toDto() =
