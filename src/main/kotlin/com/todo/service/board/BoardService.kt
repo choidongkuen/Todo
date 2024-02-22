@@ -3,6 +3,7 @@ package com.todo.service.board
 import com.todo.api.dto.board.GetBoardDetailResponse
 import com.todo.api.dto.board.GetBoardResponse
 import com.todo.api.dto.board.toGetBoardResponse
+import com.todo.api.dto.board.toGetBoardDetailResponse
 import com.todo.domain.entity.Board
 import com.todo.domain.repository.BoardRepository
 import com.todo.exception.BoardCreatedByNotMatchException
@@ -51,7 +52,7 @@ class BoardService(
     }
 
     fun getBoard(id: Long): GetBoardDetailResponse {
-        return getBoardById(id).toBoardDetailResponse()
+        return getBoardById(id).toGetBoardDetailResponse()
     }
 
     fun getBoardsBySearch(
