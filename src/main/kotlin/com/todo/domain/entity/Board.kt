@@ -19,6 +19,7 @@ open class Board(
     title: String,
     content: String,
     createdBy: String,
+    tags: List<String> = emptyList(),
 ) : BaseTimeEntity() {
     @Column(name = "title", nullable = false)
     var title: String = title
@@ -40,10 +41,17 @@ open class Board(
     var comments: MutableList<Comment> = mutableListOf()
         protected set
 
+    @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = [CascadeType.ALL])
+    var tags: MutableList<Tag> = tags.map { Tag(null, it, this, createdBy) }.toMutableList()
+
     fun updateBoard(request: UpdateBoardRequestDto) {
         title = request.title
         content = request.content
         updatedBy = request.updatedBy
+        val toTagEntity = request.tags.map { Tag(null, it, this, this.createdBy) }
+        if (this.tags != toTagEntity) {
+            updateTags(toTagEntity)
+        }
     }
 
     fun toGetBoardResponse() =
@@ -53,4 +61,9 @@ open class Board(
             createdBy = createdBy,
             createdAt = createdAt,
         )
+
+    private fun updateTags(tags: List<Tag>) {
+        this.tags.clear()
+        this.tags.addAll(tags)
+    }
 }

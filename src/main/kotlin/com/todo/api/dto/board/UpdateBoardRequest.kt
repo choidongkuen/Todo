@@ -7,11 +7,13 @@ data class UpdateBoardRequest(
     val title: String,
     val content: String,
     val updatedBy: String,
+    val tags: List<String>,
 ) {
     fun toUpdateBoardRequestDto() =
         UpdateBoardRequestDto(
             title = this.title,
             content = this.content,
             updatedBy = this.updatedBy,
+            tags = this.tags,
         )
 }

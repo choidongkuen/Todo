@@ -25,7 +25,8 @@ Content-Type: application/json
 {
     "title": "제목",
     "content": "내용",
-    "createdBy": "작성자"
+    "createdBy": "작성자",
+    "tags" : ["tag1","tag2"]
 }
 
 ### Board 수정
@@ -35,7 +36,8 @@ Content-Type: application/json
 {
     "title": "제목",
     "content": "내용",
-    "updatedBy": "수정자"
+    "updatedBy": "수정자",
+    "tags" : ["tag1","tag2"]
 }
 
 ### Board 삭제
