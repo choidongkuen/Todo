@@ -60,6 +60,7 @@ open class Board(
             title = title,
             createdBy = createdBy,
             createdAt = createdAt,
+            firstTag = tags.firstOrNull()?.name
         )
 
     private fun updateTags(tags: List<Tag>) {
