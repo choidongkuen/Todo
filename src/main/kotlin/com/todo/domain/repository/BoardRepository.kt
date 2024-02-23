@@ -30,7 +30,7 @@ class CustomBoardRepositoryImpl : CustomBoardRepository, QuerydslRepositorySuppo
                     getBoardsRequest.firstTag?.let {
                         // tags name 중에 어떤 거라도 firstTag 와 같다면
                         board.tags.any().name.contains(it)
-                    }
+                    },
                 )
                 .orderBy(board.createdAt.desc()) // 최신순
                 .offset(pageRequest.offset) // 시작

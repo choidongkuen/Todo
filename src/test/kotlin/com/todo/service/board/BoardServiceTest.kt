@@ -190,8 +190,8 @@ class BoardServiceTest(
                 tagRepository.saveAll(
                     listOf(
                         Tag(name = "tag01", board = savedBoard, createdBy = "John"),
-                        Tag(name = "tag02", board = savedBoard, createdBy = "Mike")
-                    )
+                        Tag(name = "tag02", board = savedBoard, createdBy = "Mike"),
+                    ),
                 )
 
                 `when`("정상적인 상세 조회 요청 시") {
@@ -253,10 +253,9 @@ class BoardServiceTest(
                             it.firstTag shouldBe "tag1"
                         }
                     }
-
                 }
                 `when`("태그 조건으로 정상적으로 목록 조회 요청 시") {
-                   val result = boardService.getBoardsBySearch(PageRequest.of(0,5), GetBoardsRequestDto(firstTag = "tag5"))
+                    val result = boardService.getBoardsBySearch(PageRequest.of(0, 5), GetBoardsRequestDto(firstTag = "tag5"))
                     then("태그 조건에 해당하는 게시글을 반환한다.") {
                         result.number shouldBe 0
                         result.content[0].title shouldBe "title18"
