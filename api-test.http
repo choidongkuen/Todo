@@ -78,3 +78,8 @@ DELETE localhost:8080/comments/1?deletedBy=댓글 삭제자
 ### 댓글 목록 조회
 GET localhost:8080/boards/1/comments
 
+
+//////////////////////////////////
+### 좋아요 생성
+POST localhost:8080/boards/1/likes?createdBy=john
+
