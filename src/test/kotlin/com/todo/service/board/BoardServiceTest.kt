@@ -2,15 +2,18 @@ package com.todo.service.board
 
 import com.todo.domain.entity.Board
 import com.todo.domain.entity.Comment
+import com.todo.domain.entity.Like
 import com.todo.domain.entity.Tag
 import com.todo.domain.repository.BoardRepository
 import com.todo.domain.repository.CommentRepository
+import com.todo.domain.repository.LikeRepository
 import com.todo.domain.repository.TageRepository
 import com.todo.exception.BoardCreatedByNotMatchException
 import com.todo.exception.BoardNotFoundException
 import com.todo.service.board.dto.CreateBoardRequestDto
 import com.todo.service.board.dto.GetBoardsRequestDto
 import com.todo.service.board.dto.UpdateBoardRequestDto
+import com.todo.service.like.LikeService
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.longs.shouldBeGreaterThan
@@ -24,9 +27,11 @@ import org.springframework.data.repository.findByIdOrNull
 @SpringBootTest
 class BoardServiceTest(
     private val boardService: BoardService,
+    private val likeService: LikeService,
     private val boardRepository: BoardRepository,
     private val commentRepository: CommentRepository,
     private val tagRepository: TageRepository,
+    private val likeRepository: LikeRepository,
 ) : BehaviorSpec(
         {
             beforeSpec {
@@ -195,7 +200,7 @@ class BoardServiceTest(
                 )
 
                 `when`("정상적인 상세 조회 요청 시") {
-                    val foundBoard = boardService.getBoard(savedBoard.id!!)
+                    val foundBoard = boardService.getBoardDetail(savedBoard.id!!)
                     then("게시글에 대한 상세 조회 응답이 반환된다.") {
                         foundBoard.id shouldNotBe null
                         foundBoard.title shouldBe "제목"
@@ -208,7 +213,7 @@ class BoardServiceTest(
                 }
                 `when`("게시글이 존재하지 않는 경우") {
                     then("해당 게시글이 존재하지 않습니다 예외 응답을 반환한다.") {
-                        shouldThrow<BoardNotFoundException> { boardService.getBoard(999L) }
+                        shouldThrow<BoardNotFoundException> { boardService.getBoardDetail(999L) }
                     }
                 }
                 `when`("댓글 추가 시") {
@@ -216,12 +221,21 @@ class BoardServiceTest(
                     val comment02 = commentRepository.save(Comment(content = "댓글2", createdBy = "John", board = savedBoard))
                     val comment03 = commentRepository.save(Comment(content = "댓글3", createdBy = "John", board = savedBoard))
 
-                    val foundBoard = boardService.getBoard(savedBoard.id!!)
+                    val foundBoard = boardService.getBoardDetail(savedBoard.id!!)
 
                     then("댓글과 함께 게시글에 대한 상세 조회 응답이 반환된다.") {
                         comment01.board shouldBe savedBoard
                         foundBoard.title shouldBe "제목"
                         foundBoard.comments.size shouldBe 3
+                    }
+                }
+                `when`("좋아요 추가 시") {
+                    val like01 = likeRepository.save(Like(createdBy = "Mike", board = savedBoard))
+                    val like02 = likeRepository.save(Like(createdBy = "John", board = savedBoard))
+                    val foundBoard = boardService.getBoardDetail(savedBoard.id!!)
+                    then("좋아요 갯수와 함께 상세 조회 응답이 반환된다.") {
+                        foundBoard shouldNotBe null
+                        foundBoard.likeCount shouldBe 2
                     }
                 }
             }
@@ -264,6 +278,17 @@ class BoardServiceTest(
                         result.content.forEach {
                             it.firstTag shouldBe "tag5"
                         }
+                    }
+                }
+                `when`("좋아요가 2개 추가되었을 때 목록 조회 요청 시") {
+                    val result = boardService.getBoardsBySearch(PageRequest.of(0, 5), GetBoardsRequestDto(firstTag = "tag5"))
+                    val savedLikeId01 = likeService.createLike(result.content[0].id!!, "John")
+                    val savedLikeId02 = likeService.createLike(result.content[0].id!!, "Mike")
+
+                    val likedResult = boardService.getBoardsBySearch(PageRequest.of(0, 5), GetBoardsRequestDto(firstTag = "tag5"))
+                    then("좋아요 갯수와 함께 게시글 목록을 반환한다.") {
+                        likedResult.size shouldBe 5
+                        likedResult.content[0].likeCount shouldBe 2
                     }
                 }
             }
