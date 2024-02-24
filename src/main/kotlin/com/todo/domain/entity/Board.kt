@@ -66,6 +66,7 @@ open class Board(
             createdBy = createdBy,
             createdAt = createdAt,
             firstTag = tags.firstOrNull()?.name,
+            likeCount = likes.count(),
         )
 
     private fun updateTags(tags: List<Tag>) {

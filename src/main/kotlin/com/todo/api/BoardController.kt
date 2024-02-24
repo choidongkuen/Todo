@@ -42,7 +42,7 @@ class BoardController(
     @GetMapping("/{id}")
     fun getBoard(
         @PathVariable id: Long,
-    ) = ok(boardService.getBoard(id))
+    ) = ok(boardService.getBoardDetail(id))
 
     @GetMapping
     fun getBoardsBySearch(
