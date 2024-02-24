@@ -29,7 +29,7 @@ class CustomBoardRepositoryImpl : CustomBoardRepository, QuerydslRepositorySuppo
                     getBoardsRequest.createdBy?.let { board.createdBy.eq(it) },
                     getBoardsRequest.firstTag?.let {
                         // tags name 중에 어떤 거라도 firstTag 와 같다면
-                        board.tags.any().name.contains(it)
+                        board.tags.any().name.eq(it)
                     },
                 )
                 .orderBy(board.createdAt.desc()) // 최신순
