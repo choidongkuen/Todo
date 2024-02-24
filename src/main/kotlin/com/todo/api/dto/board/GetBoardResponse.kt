@@ -12,7 +12,7 @@ data class GetBoardResponse(
     val createdBy: String,
     val createdAt: LocalDateTime,
     val firstTag: String? = null,
-    val likeCount: Long? = 0,
+    val likeCount: Int? = 0,
 )
 
 fun Page<Board>.toGetBoardResponse() =

@@ -13,7 +13,7 @@ data class GetBoardDetailResponse(
     val createdAt: LocalDateTime,
     val comments: MutableList<CommentResponse>,
     val tags: List<String> = emptyList(),
-    val likeCount: Long? = 0,
+    val likeCount: Int? = 0,
 )
 
 fun Board.toGetBoardDetailResponse() =
@@ -25,4 +25,5 @@ fun Board.toGetBoardDetailResponse() =
         createdAt = createdAt,
         comments = comments.map { it.toCommentResponse() }.toMutableList(),
         tags = tags.map { it.name },
+        likeCount = likes.count(),
     )
