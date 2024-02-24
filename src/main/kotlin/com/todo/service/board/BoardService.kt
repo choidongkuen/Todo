@@ -51,7 +51,7 @@ class BoardService(
         return id
     }
 
-    fun getBoard(id: Long): GetBoardDetailResponse {
+    fun getBoardDetail(id: Long): GetBoardDetailResponse {
         return getBoardById(id).toGetBoardDetailResponse()
     }
 
