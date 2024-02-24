@@ -30,4 +30,6 @@ class Tag(
     @Column(name = "created_by")
     var createdBy: String = createdBy
         protected set
+
+    fun Tag.toTagResponse() = name
 }

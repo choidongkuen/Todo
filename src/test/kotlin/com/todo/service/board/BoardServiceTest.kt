@@ -2,6 +2,7 @@ package com.todo.service.board
 
 import com.todo.domain.entity.Board
 import com.todo.domain.entity.Comment
+import com.todo.domain.entity.Tag
 import com.todo.domain.repository.BoardRepository
 import com.todo.domain.repository.CommentRepository
 import com.todo.domain.repository.TageRepository
@@ -37,8 +38,8 @@ class BoardServiceTest(
                         Board(title = "title14", content = "content4", createdBy = "Mike4", tags = listOf("tag1")),
                         Board(title = "title15", content = "content5", createdBy = "Mike5", tags = listOf("tag1")),
                         Board(title = "title16", content = "content6", createdBy = "Mike6", tags = listOf("tag1")),
-                        Board(title = "title17", content = "content7", createdBy = "Mike7", tags = listOf("tag1")),
-                        Board(title = "title18", content = "content8", createdBy = "Mike8", tags = listOf("tag1")),
+                        Board(title = "title17", content = "content7", createdBy = "Mike7", tags = listOf("tag5")),
+                        Board(title = "title18", content = "content8", createdBy = "Mike8", tags = listOf("tag5")),
                     ),
                 )
             }
@@ -185,11 +186,24 @@ class BoardServiceTest(
             given("게시글 상세 조회 시") {
                 val board = Board(title = "제목", content = "내용", createdBy = "Mike")
                 val savedBoard = boardRepository.save(board)
+
+                tagRepository.saveAll(
+                    listOf(
+                        Tag(name = "tag01", board = savedBoard, createdBy = "John"),
+                        Tag(name = "tag02", board = savedBoard, createdBy = "Mike"),
+                    ),
+                )
+
                 `when`("정상적인 상세 조회 요청 시") {
                     val foundBoard = boardService.getBoard(savedBoard.id!!)
                     then("게시글에 대한 상세 조회 응답이 반환된다.") {
-                        savedBoard.id shouldNotBe null
-                        savedBoard.title shouldBe "제목"
+                        foundBoard.id shouldNotBe null
+                        foundBoard.title shouldBe "제목"
+                        foundBoard.tags.size shouldBe 2
+                    }
+                    then("게시글과 함께 태그도 함께 조회된다.") {
+                        foundBoard.tags.size shouldNotBe 0
+                        foundBoard.tags[0] shouldBe "tag01"
                     }
                 }
                 `when`("게시글이 존재하지 않는 경우") {
@@ -211,8 +225,9 @@ class BoardServiceTest(
                     }
                 }
             }
+            // 제목, 작성자 ,태그
             given("게시글 목록 조회 시") {
-                `when`("조건 없이 정상적인 목록 조회 ㅁ요청 시") {
+                `when`("조건 없이 정상적인 목록 조회 요청 시") {
                     val result = boardService.getBoardsBySearch(PageRequest.of(0, 5), GetBoardsRequestDto())
                     then("게시글에 대한 목록 조회 응답이 반환된다.") {
                         result.size shouldBe 5
@@ -229,8 +244,27 @@ class BoardServiceTest(
                 }
                 `when`("작성자 조건으로 정상적인 목록 조회 요청 시") {
                     val result = boardService.getBoardsBySearch(PageRequest.of(0, 5), GetBoardsRequestDto(createdBy = "Mike1"))
-                    result.size shouldBe 5
-                    result.content.size shouldBe 1
+                    then("작성자 조건에 해당하는 게시글을 반환한다.") {
+                        result.size shouldBe 5
+                        result.content.size shouldBe 1
+                    }
+                    then("첫번째 태그도 함께 조회된다.") {
+                        result.content.forEach {
+                            it.firstTag shouldBe "tag1"
+                        }
+                    }
+                }
+                `when`("태그 조건으로 정상적으로 목록 조회 요청 시") {
+                    val result = boardService.getBoardsBySearch(PageRequest.of(0, 5), GetBoardsRequestDto(firstTag = "tag5"))
+                    then("태그 조건에 해당하는 게시글을 반환한다.") {
+                        result.number shouldBe 0
+                        result.content[0].title shouldBe "title18"
+                        result.content[1].title shouldBe "title17"
+                        result.size shouldBe 5
+                        result.content.forEach {
+                            it.firstTag shouldBe "tag5"
+                        }
+                    }
                 }
             }
         },

@@ -1,7 +1,7 @@
 package com.todo.api
 
 import com.todo.api.dto.board.CreateBoardRequest
-import com.todo.api.dto.board.GetBoardsRequest
+import com.todo.api.dto.board.GetBoardsRequestBySearch
 import com.todo.api.dto.board.UpdateBoardRequest
 import com.todo.api.dto.board.toDto
 import com.todo.service.board.BoardService
@@ -47,6 +47,6 @@ class BoardController(
     @GetMapping
     fun getBoardsBySearch(
         pageable: Pageable,
-        getBoardsRequest: GetBoardsRequest,
-    ) = ok(boardService.getBoardsBySearch(pageable, getBoardsRequest.toDto()))
+        getBoardsRequestBySearch: GetBoardsRequestBySearch,
+    ) = ok(boardService.getBoardsBySearch(pageable, getBoardsRequestBySearch.toDto()))
 }
