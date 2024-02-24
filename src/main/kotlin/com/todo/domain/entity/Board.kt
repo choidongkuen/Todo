@@ -43,6 +43,11 @@ open class Board(
 
     @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = [CascadeType.ALL])
     var tags: MutableList<Tag> = tags.map { Tag(null, it, this, createdBy) }.toMutableList()
+        protected set
+
+    @OneToMany(mappedBy = "board", orphanRemoval = true, cascade = [CascadeType.ALL])
+    var likes: MutableList<Like> = mutableListOf()
+        protected set
 
     fun updateBoard(request: UpdateBoardRequestDto) {
         title = request.title
